@@ -1,0 +1,123 @@
+:root {
+  --blu: #00d9ff;
+  --rosso: #ff2a6d;
+  --bg: #000;
+  --grid: #1a1a1a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.scanline {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    transparent, transparent 2px, rgba(0,255,255,0.03) 3px
+  );
+  pointer-events: none;
+  animation: scan 8s linear infinite;
+}
+
+@keyframes scan { 0% { transform: translateY(0); } 100% { transform: translateY(10px); } }
+
+.container {
+  text-align: center;
+  z-index: 2;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  color: var(--blu);
+  text-shadow: 0 0 20px var(--blu), 0 0 40px var(--blu);
+  animation: flicker 2s infinite;
+}
+
+@keyframes flicker {
+ 0%, 100% { opacity: 1; }
+ 50% { opacity: 0.8; }
+}
+
+#status {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  height: 30px;
+  color: #ccc;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 120px);
+  gap: 15px;
+  margin: 30px auto;
+}
+
+.cell {
+  width: 120px;
+  height: 120px;
+  background: var(--grid);
+  border: 2px solid #333;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.cell:hover:not(.taken) {
+  border-color: var(--blu);
+  box-shadow: 0 0 25px var(--blu);
+  transform: scale(1.05);
+}
+
+.cell.blu {
+  color: var(--blu);
+  text-shadow: 0 0 20px var(--blu);
+  border-color: var(--blu);
+  animation: popIn 0.3s ease;
+}
+
+.cell.rosso {
+  color: var(--rosso);
+  text-shadow: 0 0 20px var(--rosso);
+  border-color: var(--rosso);
+  animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+ 0% { transform: scale(0.5); }
+ 100% { transform: scale(1); }
+}
+
+#reset {
+  background: transparent;
+  border: 2px solid var(--blu);
+  color: var(--blu);
+  padding: 12px 30px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  text-transform: uppercase;
+}
+
+#reset:hover {
+  background: var(--blu);
+  color: var(--bg);
+  box-shadow: 0 0 20px var(--blu);
+}
